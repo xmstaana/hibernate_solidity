@@ -1,0 +1,46 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"details": "String operations.",
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Kiguroomie.sol": "Strings"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Kiguroomie.sol": {
+			"keccak256": "0x57a7fe4e317e1f4d07b3dd9f80aa3f942e10a78fedcfb1bed598b10114401806",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://ca0da0c281f822e747f6530297f7cf104d4df065971121c674c6e6322ce0d1ea",
+				"dweb:/ipfs/QmZCbAvNrgaB67AoPmxU5FysMsv2m1MeBw7dAUn4K4enDE"
+			]
+		}
+	},
+	"version": 1
+}
