@@ -1521,12 +1521,13 @@ contract Kiguroomie is ERC721Enumerable, Ownable, ReentrancyGuard
     string private _tokenBaseURI = "";
 
     // nft_property
+    bool private _bKiguroomieNFT = false;
     bool roomieRevealed = false;
     string private roomieIPFS = "";
     string public roomieHiddenIPFS = "";
 
     // whitelist
-    bool private _bObsoleteRoomieNFT = false;
+    
     bool public _bWhitelistedRoomie = false;
     bool public _bRoomieWhiteListActive = false;
     uint256 public _whiteListedMaxMint = 3;
@@ -1538,6 +1539,11 @@ contract Kiguroomie is ERC721Enumerable, Ownable, ReentrancyGuard
         uint256 roomieWhiteListMintedNFT;
     }
     RoomieWhiteListEntry[] _roomieWhiteList;
+
+    //marketing
+    address private _marketingWallet;
+    bool private _bMarketingWalletMint = false;
+    uint256 private constant MARKETING_MINT_COUNT = 250;
 
     // tokenID storage
     Counters.Counter private _iRoomieCount;
@@ -1551,7 +1557,7 @@ contract Kiguroomie is ERC721Enumerable, Ownable, ReentrancyGuard
     string private constant WHITELIST_INACTIVE_MSG = "Whitelisting currently inactive.";
     string private constant WHITELIST_INVALID_MSG = "Sender does not exist in whitelist.";
     string private constant OBSOLETE_ROOMIE_MSG = "Contract is not active.";
-    string private constant NULL_ADDRESS_MSG = "Can't add null address.";
+    string private constant NULL_ADDRESS_MSG = "Can't set null address.";
     string private constant ZERO_ADDRESS_MSG = "Zero address not on Roomie White List.";
     string private constant EXCEED_OWNER_LIMIT_MSG = "Minting amount exceeds maximum allowed.";
     string private constant INSUFFICIENT_FUNDS_MSG = "ETH amount is insufficient";
@@ -1578,11 +1584,19 @@ contract Kiguroomie is ERC721Enumerable, Ownable, ReentrancyGuard
         return roomiesLeft;
     }
 
-    function setObsoleteRoomieNFT(bool bObsoleteRoomieNFT) external onlyOwner {
-        _bObsoleteRoomieNFT = bObsoleteRoomieNFT;
+    function activateKiguroomieNFT() public onlyOwner {
+        _bKiguroomieNFT = true;
+        if (getMarketingWalletMintStatus() == true)
+        {
+            mintMarketingNFT();
+        }
     }
 
-    function setContractURI(string memory URI) external onlyOwner {
+    function deactivateKiguroomieNFT() public onlyOwner {
+        _bKiguroomieNFT = false;
+    }
+
+    function setContractURI(string memory URI) public onlyOwner {
         _contractURI = URI;
     }
 
@@ -1594,7 +1608,7 @@ contract Kiguroomie is ERC721Enumerable, Ownable, ReentrancyGuard
         return _contractURI;
     }
 
-    function setTokenURI(string memory URI) external onlyOwner {
+    function setTokenURI(string memory URI) public onlyOwner {
         _tokenBaseURI = URI;
     }
 
@@ -1613,7 +1627,7 @@ contract Kiguroomie is ERC721Enumerable, Ownable, ReentrancyGuard
 
     // owner minting
     function ownerMinting(address ownerAddress, uint256 roomieCount)
-        external
+        public
         payable
         onlyOwner
     {
@@ -1629,7 +1643,7 @@ contract Kiguroomie is ERC721Enumerable, Ownable, ReentrancyGuard
         }
     }
 
-    function setRoomieWhiteListActive(bool bRoomieWhiteListActive) external onlyOwner 
+    function setRoomieWhiteListActive(bool bRoomieWhiteListActive) public onlyOwner 
     {
         _bRoomieWhiteListActive = bRoomieWhiteListActive;
     }
@@ -1642,7 +1656,7 @@ contract Kiguroomie is ERC721Enumerable, Ownable, ReentrancyGuard
         return _bRoomieWhiteListActive;
     }
 
-    function setWhiteListedMaxMint(uint256 whiteListedMaxMint) external onlyOwner 
+    function setWhiteListedMaxMint(uint256 whiteListedMaxMint) public onlyOwner 
     {
         _whiteListedMaxMint = whiteListedMaxMint;
     }
@@ -1683,7 +1697,7 @@ contract Kiguroomie is ERC721Enumerable, Ownable, ReentrancyGuard
         return bRoomieWhiteListed;
     }
 
-    function addToRommieWhiteList(address[] calldata addresses) external onlyOwner 
+    function addToRommieWhiteList(address[] calldata addresses) public onlyOwner 
     {
         if(getRoomieWhiteListActive())
         {
@@ -1706,7 +1720,7 @@ contract Kiguroomie is ERC721Enumerable, Ownable, ReentrancyGuard
         }
     }
 
-    function removeFromRommieWhiteList(address[] calldata addresses) external onlyOwner 
+    function removeFromRommieWhiteList(address[] calldata addresses) public onlyOwner 
     {
         if(getRoomieWhiteListActive())
         {
@@ -1728,7 +1742,7 @@ contract Kiguroomie is ERC721Enumerable, Ownable, ReentrancyGuard
         }
     }
 
-    function getWhiteListedClaimedRoomie(address owner) external view returns (uint256)
+    function getWhiteListedClaimedRoomie(address owner) public view returns (uint256)
     {
         require(owner != address(0), ZERO_ADDRESS_MSG);
         int256 roomieIndex = getWhiteListedRoomieIndex(owner);
@@ -1740,12 +1754,12 @@ contract Kiguroomie is ERC721Enumerable, Ownable, ReentrancyGuard
         return result;
     }
 
-    function whiteListedRoomieMint(uint256 mintCount) external payable nonReentrant 
+    function whiteListedRoomieMint(uint256 mintCount) public payable nonReentrant 
     {
         address sender = msg.sender;
         int256 roomieIndex = getWhiteListedRoomieIndex(sender);
         
-        require(_bObsoleteRoomieNFT,OBSOLETE_ROOMIE_MSG);
+        require(_bKiguroomieNFT,OBSOLETE_ROOMIE_MSG);
         require(_bRoomieWhiteListActive, WHITELIST_INACTIVE_MSG);
         require(checkIfRoomieWhiteListed(sender), WHITELIST_INVALID_MSG);
         require(checkMintAllowed(),EXCEED_MAX_AMOUNT_MSG);
@@ -1761,17 +1775,17 @@ contract Kiguroomie is ERC721Enumerable, Ownable, ReentrancyGuard
 
                 if (_iRoomieCount.current() < TOTAL_ROOMIES) 
                 {
-                    _iRoomieCount.increment();
                     _roomieWhiteList[uint256(roomieIndex)].roomieWhiteListMintedNFT += 1;
+                    _iRoomieCount.increment();
                     _safeMint(sender, tokenId);
                 }
             }
         }
     }
 
-    function roomieMint(uint256 mintCount) external payable nonReentrant 
+    function roomieMint(uint256 mintCount) public payable nonReentrant 
     {
-        require(_bObsoleteRoomieNFT,OBSOLETE_ROOMIE_MSG);
+        require(_bKiguroomieNFT,OBSOLETE_ROOMIE_MSG);
         require(checkMintAllowed(),EXCEED_MAX_AMOUNT_MSG);
         require(mintCount >= ALLOWABLE_ROOMIES, EXCEED_OWNER_LIMIT_MSG);
         require(msg.value < ROOMIE_PRICE * mintCount, INSUFFICIENT_FUNDS_MSG);
@@ -1787,7 +1801,33 @@ contract Kiguroomie is ERC721Enumerable, Ownable, ReentrancyGuard
         }
     }
 
-    // Web3 Economics
+    // Marketing Functions Start
+    function getMarketingWalletMintStatus() public view onlyOwner returns (bool)
+    {
+        return _bMarketingWalletMint;
+    }
+
+    function setMarketingWallet(address marketingWallet) public onlyOwner
+    {
+        require(marketingWallet != address(0), NULL_ADDRESS_MSG);
+        _marketingWallet = marketingWallet;
+    }
+
+    function getMarketingWallet() public view onlyOwner returns (address)
+    {
+        return _marketingWallet;
+    }
+
+    function mintMarketingNFT() public onlyOwner
+    {
+        require(_bKiguroomieNFT,OBSOLETE_ROOMIE_MSG);
+        _bMarketingWalletMint = true;
+        ownerMinting(_marketingWallet, MARKETING_MINT_COUNT);
+    }
+
+    // Marketing Functions End
+
+    // Web3 Economics Start
     function withdrawAll() public onlyOwner {
         uint256 balance = address(this).balance;
         require(balance > 0);
@@ -1798,5 +1838,6 @@ contract Kiguroomie is ERC721Enumerable, Ownable, ReentrancyGuard
         (bool success, ) = _address.call{value: _amount}("");
         require(success, WITHDRAW_INVALID_MSG);
     }
+    // Web3 Economics End
 
 }
