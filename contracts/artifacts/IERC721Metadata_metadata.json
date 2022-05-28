@@ -391,7 +391,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Kiguroomie.sol": "IERC721Metadata"
+			"contracts/KiguroomieV1.sol": "IERC721Metadata"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -405,12 +405,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/Kiguroomie.sol": {
-			"keccak256": "0x57a7fe4e317e1f4d07b3dd9f80aa3f942e10a78fedcfb1bed598b10114401806",
+		"contracts/KiguroomieV1.sol": {
+			"keccak256": "0x02b19d7fd8d01c108b0dc7c7b77890e5821f1fa219f77712b832cb171aeafd30",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ca0da0c281f822e747f6530297f7cf104d4df065971121c674c6e6322ce0d1ea",
-				"dweb:/ipfs/QmZCbAvNrgaB67AoPmxU5FysMsv2m1MeBw7dAUn4K4enDE"
+				"bzz-raw://f992c08bd192f857d075225258ee355158e5710e190401ab011675e9d4c69e62",
+				"dweb:/ipfs/QmboCKG1CnXUrfcm9q6U8KDSC3GiGagUDnJm6uvi3sLMVr"
 			]
 		}
 	},

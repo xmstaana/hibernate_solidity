@@ -6,7 +6,18 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "name_",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "symbol_",
+						"type": "string"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
 			},
@@ -33,16 +44,6 @@
 			{
 				"inputs": [],
 				"name": "BalanceQueryForZeroAddress",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "MintToZeroAddress",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "MintZeroQuantity",
 				"type": "error"
 			},
 			{
@@ -78,6 +79,11 @@
 			{
 				"inputs": [],
 				"name": "TransferToZeroAddress",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "URIQueryForNonexistentToken",
 				"type": "error"
 			},
 			{
@@ -141,25 +147,6 @@
 					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "previousOwner",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "newOwner",
-						"type": "address"
-					}
-				],
-				"name": "OwnershipTransferred",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
 						"name": "from",
 						"type": "address"
 					},
@@ -178,104 +165,6 @@
 				],
 				"name": "Transfer",
 				"type": "event"
-			},
-			{
-				"inputs": [],
-				"name": "ALLOWABLE_ROOMIES",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "ROOMIE_PRICE",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "TOTAL_ROOMIES",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "_bRoomieWhiteListActive",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "_bWhitelistedRoomie",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "_whiteListedMaxMint",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "activateKiguroomieNFT",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address[]",
-						"name": "addresses",
-						"type": "address[]"
-					}
-				],
-				"name": "addToRommieWhiteList",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
 			},
 			{
 				"inputs": [
@@ -317,32 +206,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "suspectedAddress",
-						"type": "address"
-					}
-				],
-				"name": "checkIfRoomieWhiteListed",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "deactivateKiguroomieNFT",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "uint256",
 						"name": "tokenId",
 						"type": "uint256"
@@ -354,109 +217,6 @@
 						"internalType": "address",
 						"name": "",
 						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getContractURI",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getMarketingWallet",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getMarketingWalletMintStatus",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getRoomieWhiteListActive",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getRoomiesLeft",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "owner",
-						"type": "address"
-					}
-				],
-				"name": "getWhiteListedClaimedRoomie",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "suspectedAddress",
-						"type": "address"
-					}
-				],
-				"name": "getWhiteListedRoomieIndex",
-				"outputs": [
-					{
-						"internalType": "int256",
-						"name": "",
-						"type": "int256"
 					}
 				],
 				"stateMutability": "view",
@@ -488,13 +248,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "mintMarketingNFT",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "name",
 				"outputs": [
 					{
@@ -504,37 +257,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "owner",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "ownerAddress",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "roomieCount",
-						"type": "uint256"
-					}
-				],
-				"name": "ownerMinting",
-				"outputs": [],
-				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -554,52 +276,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address[]",
-						"name": "addresses",
-						"type": "address[]"
-					}
-				],
-				"name": "removeFromRommieWhiteList",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "renounceOwnership",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "roomieHiddenIPFS",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "mintCount",
-						"type": "uint256"
-					}
-				],
-				"name": "roomieMint",
-				"outputs": [],
-				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -667,71 +343,6 @@
 					}
 				],
 				"name": "setApprovalForAll",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "URI",
-						"type": "string"
-					}
-				],
-				"name": "setContractURI",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "marketingWallet",
-						"type": "address"
-					}
-				],
-				"name": "setMarketingWallet",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "bool",
-						"name": "bRoomieWhiteListActive",
-						"type": "bool"
-					}
-				],
-				"name": "setRoomieWhiteListActive",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "URI",
-						"type": "string"
-					}
-				],
-				"name": "setTokenURI",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "whiteListedMaxMint",
-						"type": "uint256"
-					}
-				],
-				"name": "setWhiteListedMaxMint",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -865,42 +476,10 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "newOwner",
-						"type": "address"
-					}
-				],
-				"name": "transferOwnership",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "mintCount",
-						"type": "uint256"
-					}
-				],
-				"name": "whiteListedRoomieMint",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "withdrawAll",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
 			}
 		],
 		"devdoc": {
+			"details": "Implementation of https://eips.ethereum.org/EIPS/eip-721[ERC721] Non-Fungible Token Standard, including the Metadata and Enumerable extension. Built to optimize for lower gas during batch mints. Assumes serials are sequentially minted starting at 0 (e.g. 0, 1, 2, 3..). Does not support burning tokens to address(0). Assumes that an owner cannot have more than the 2**128 - 1 (max value of uint128) of supply",
 			"kind": "dev",
 			"methods": {
 				"approve(address,uint256)": {
@@ -918,14 +497,8 @@
 				"name()": {
 					"details": "See {IERC721Metadata-name}."
 				},
-				"owner()": {
-					"details": "Returns the address of the current owner."
-				},
 				"ownerOf(uint256)": {
 					"details": "See {IERC721-ownerOf}."
-				},
-				"renounceOwnership()": {
-					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
 				},
 				"safeTransferFrom(address,address,uint256)": {
 					"details": "See {IERC721-safeTransferFrom}."
@@ -956,9 +529,6 @@
 				},
 				"transferFrom(address,address,uint256)": {
 					"details": "See {IERC721-transferFrom}."
-				},
-				"transferOwnership(address)": {
-					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
 				}
 			},
 			"version": 1
@@ -971,7 +541,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/KiguroomieV2.sol": "Kiguroomie"
+			"contracts/ERC721A.sol": "ERC721A"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -1063,14 +633,6 @@
 			"urls": [
 				"bzz-raw://1bd6205c6e68d14b2f884819c1617c770fb22c333f3a81ff2828b42734ee8307",
 				"dweb:/ipfs/QmSkTF6FDumSj48R986bb1EkuBAVYtnv2W1dai3TQGaQBh"
-			]
-		},
-		"contracts/KiguroomieV2.sol": {
-			"keccak256": "0xe780d99aa69aebc25ec200eb87b99328aa76538a1b8e58126ae965564f8a211e",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://1248601ea792658b08390f9ce43a0ceb3d4dbd0485aa3df0bfd56b10ca42bdaf",
-				"dweb:/ipfs/QmZTP53c3ZocQ7tVDwktKQgqqDSGDk1s6HEpnMyWJKX9hs"
 			]
 		}
 	},
